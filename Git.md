@@ -8,7 +8,7 @@
 
 ## 目录
 
-1. [安装与配置](#安装与配置)
+1. [示例流程](#示例流程)
 2. [仓库基础操作](#仓库基础操作)
 3. [提交管理](#提交管理)
 4. [分支管理](#分支管理)
@@ -21,38 +21,129 @@
 
 ---
 
-## 安装与配置
+## 示例流程
 
-### 1. 安装 Git
+### 1. 代码托管平台创建仓库
 
-- **Windows**: [官网下载](https://git-scm.com/downloads)
-- **macOS**:
+- **GitHub**: 官网登录后点击绿色的**New**按钮创建仓库即可
+注：若出现创建Repository name Couldn't check availability，切换浏览器或加速器节点即可。
+- **Gitee**:官网登录后点击右上角+号并在二级菜单点击**新建仓库**即可
 
-  ```bash
-  brew install git
-  ```
+### 2. Git上传代码至仓库
 
-- **Linux**:
-
-  ```bash
-  sudo apt-get install git  # Ubuntu/Debian
-  sudo yum install git      # CentOS/Fedora
-  ```
-
-### 2. 全局配置
+- 在需要上传的文件目录下右键菜单选择**Open Git Bash here**打开Git控制台
+- 初始化仓库
 
 ```bash
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
-git config --global core.editor "code --wait"  # 设置VS Code为默认编辑器
-git config --global init.defaultBranch main    # 设置默认分支为main
+git init
 ```
 
-### 3. 查看配置
+   初始化之后可检查仓库状态
 
 ```bash
-git config --list
+git status
 ```
+
+   如果成功初始化，你会看到类似以下的输出：
+
+```bash
+On branch main
+No commits yet
+nothing to commit (create/copy files and use "git add" to track)
+```
+
+- 添加远程仓库
+
+```bash
+git remote add origin https://github.com//你的用户名/项目名称.git
+```
+
+- 重命名分支
+将当前分支重命名为 main（如果默认分支不是 main），据说不用master是因为不尊重黑人？
+
+```bash
+git branch -M main
+```
+
+- 将文件添加到暂存区
+
+```bash
+git add .
+```
+
+- 提交更改
+
+```bash
+git commit -m "Your commit message"
+```
+
+注：**Your commit message**可以选择你完成的功能开发，比如**UI界面搭建**
+
+- 推送代码到代码托管平台
+
+```bash
+git push -u origin main
+```
+
+   这里可能会报各种各样的错
+
+```bash
+fatal: unable to access 'https://github.com/MizukiWendy/MarkDown-Mizuki.git/': Failure when receiving data from the peer
+```
+
+   fatal: unable to access 错误表明 Git 无法连接到远程仓库，通常是由于网络问题或连接被阻止引起的。简单来讲就是与GitHub断开连接了。
+
+```bash
+fatal: unable to access 'https://github.com/MizukiWendy/MarkDown-Mizuki.git/': Failed to connect to github.com port 443 after 21081 ms: Couldn't connect to server
+```
+
+   fatal: unable to access 错误表明 Git 无法连接到 GitHub 服务器（github.com），具体原因是无法连接到端口 443，这通常与网络环境、防火墙、代理或 GitHub 服务问题有关。
+
+至于**解决方法**嘛，等一段时间再试，或者换加速器节点
+
+---
+
+### 修改远程仓库平台
+
+- 查看当前远程仓库
+
+```bash
+git remote -v
+```
+
+   如果原本是GitHub仓库，输出示例：
+
+```bash
+origin  https://github.com/MizukiWendy/MarkDown-Mizuki.git (fetch)
+origin  https://github.com/MizukiWendy/MarkDown-Mizuki.git (push)
+```
+
+- 添加 Gitee 的远程仓库
+
+```bash
+git remote add gitee https://gitee.com/你的用户名/项目名称.git
+```
+
+   此时输入检查远程仓库就会多出来Gitee的远程仓库地址
+
+```bash
+git remote -v
+```
+
+```bash
+origin  https://github.com/你的用户名/项目名称.git (fetch)
+origin  https://github.com/你的用户名/项目名称.git (push)
+gitee   https://gitee.com/你的用户名/项目名称.git (fetch)
+gitee   https://gitee.com/你的用户名/项目名称.git (push)
+```
+
+- 推送代码到代码托管平台
+
+```bash
+git push -u gitee main
+```
+
+   这里大概弹窗让你再填写一下你的用户名和密码，正常填写之后就可以正常提交。
 
 ---
 
@@ -286,23 +377,3 @@ git submodule update --init --recursive
 3. [Learn Git Branching](https://learngitbranching.js.org/)
 4. [Git 可视化学习](https://github.com/pcottle/learnGitBranching)
 5. [Git Flight Rules](https://github.com/k88hudson/git-flight-rules)
-
----
-
-> 最后更新：2023年8月 | 作者：AI助手 | 许可证：CC BY-NC-SA 4.0
-
-这份文档包含：
-
-1. 安装配置的详细步骤
-2. 日常操作的命令速查
-3. 分支管理的最佳实践
-4. 高级功能的实用技巧
-5. 可视化表格和代码示例
-6. 延伸学习资源
-
-可以通过以下方式使用：
-
-1. 保存为 `Git-CheatSheet.md` 随时查阅
-2. 打印成 PDF 作为速查手册
-3. 配合实际项目操作练习
-4. 根据团队需求定制内容
