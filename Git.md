@@ -16,8 +16,8 @@
 6. [撤销操作](#撤销操作)
 7. [标签管理](#标签管理)
 8. [高级技巧](#高级技巧)
-9. [最佳实践](#最佳实践)
-10. [学习资源](#学习资源)
+9. [工作流程原理](#工作流程原理)
+10. [工作流程示例](#工作流程示例)
 
 ---
 
@@ -114,8 +114,8 @@ git remote -v
    如果原本是GitHub仓库，输出示例：
 
 ```bash
-origin  https://github.com/MizukiWendy/MarkDown-Mizuki.git (fetch)
-origin  https://github.com/MizukiWendy/MarkDown-Mizuki.git (push)
+origin  https://github.com/你的用户名/项目名称.git (fetch)
+origin  https://github.com/你的用户名/项目名称.git (push)
 ```
 
 - 添加 Gitee 的远程仓库
@@ -256,7 +256,9 @@ git remote remove origin                               # 删除远程仓库
 ### 2. 推送与拉取
 
 ```bash
-git push origin main           # 推送到远程分支
+git push origin main           # 推送到GitHub
+git push gitee main            # 推送到Gitee
+git push --all                 # 推送到全部平台
 git push -u origin main        # 设置上游分支（首次推送）
 git pull origin main           # 拉取并合并远程更改
 git fetch origin               # 仅获取远程更新不合并
@@ -347,33 +349,69 @@ git submodule update --init --recursive
 
 ---
 
-## 最佳实践
+## 工作流程原理
 
-1. **提交规范**
-   - 使用 [Conventional Commits](https://www.conventionalcommits.org/) 规范
-   - 示例：`feat: 添加用户登录功能`
-
-2. **分支策略**
-   - `main`：生产环境代码
-   - `develop`：开发分支
-   - `feature/xxx`：功能分支
-   - `hotfix/xxx`：紧急修复分支
-
-3. **.gitignore 文件**
-
-   ```text
-   # 示例
-   node_modules/
-   *.log
-   .env
-   ```
+**每次修改都需要先提交到本地仓库，然后再推送到远程仓库**。这是 Git 的标准工作流程，分为以下几个步骤：
 
 ---
 
-## 学习资源
+### **1. Git 的工作流程**
 
-1. [Pro Git 中文版](https://git-scm.com/book/zh/v2)
-2. [Git 官方文档](https://git-scm.com/docs)
-3. [Learn Git Branching](https://learngitbranching.js.org/)
-4. [Git 可视化学习](https://github.com/pcottle/learnGitBranching)
-5. [Git Flight Rules](https://github.com/k88hudson/git-flight-rules)
+1. **修改文件**：在工作目录中编辑、添加或删除文件。
+2. **添加到暂存区**：使用 `git add` 将修改的文件添加到暂存区（可以理解为“准备提交”）。
+3. **提交到本地仓库**：使用 `git commit` 将暂存区的修改提交到本地仓库。
+4. **推送到远程仓库**：使用 `git push` 将本地仓库的更改同步到远程仓库（如 GitHub 或 Gitee）。
+
+---
+
+### **2. 为什么需要先提交到本地仓库？**
+
+- **版本控制**：Git 的核心功能是版本控制。提交到本地仓库会记录一个历史快照，方便你回滚或查看历史更改。
+- **离线工作**：你可以在没有网络的情况下提交到本地仓库，等有网络时再推送。
+- **灵活性**：本地提交可以在推送前多次修改或整理（如使用 `git commit --amend`），确保推送的提交是完整的、干净的。
+
+---
+
+## **工作流程示例**
+
+假设你修改了一些文件，并希望推送到远程仓库，以下是完整的步骤：
+
+### **步骤 1：查看修改状态**
+
+```bash
+git status
+```
+
+### **步骤 2：添加到暂存区**
+
+```bash
+git add 文件名
+```
+
+如果需要添加所有修改：
+
+```bash
+git add .
+```
+
+### **步骤 3：提交到本地仓库**
+
+```bash
+git commit -m "描述你的修改"
+```
+
+### **步骤 4：推送到远程仓库**
+
+推送到 **GitHub**：
+
+```bash
+git push origin main
+```
+
+推送到 **Gitee**：
+
+```bash
+git push gitee main
+```
+
+---
