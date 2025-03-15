@@ -85,21 +85,36 @@ git commit -m "Your commit message"
 git push -u origin main
 ```
 
-   这里可能会报各种各样的错
+---
+
+注：**这里可能会报各种各样的错**
 
 ```bash
 fatal: unable to access 'https://github.com/MizukiWendy/MarkDown-Mizuki.git/': Failure when receiving data from the peer
 ```
 
-   fatal: unable to access 错误表明 Git 无法连接到远程仓库，通常是由于网络问题或连接被阻止引起的。简单来讲就是与GitHub断开连接了。
+- fatal: unable to access 错误表明 Git 无法连接到远程仓库，通常是由于网络问题或连接被阻止引起的。简单来讲就是与GitHub断开连接了。
+
+---
 
 ```bash
 fatal: unable to access 'https://github.com/MizukiWendy/MarkDown-Mizuki.git/': Failed to connect to github.com port 443 after 21081 ms: Couldn't connect to server
 ```
 
-   fatal: unable to access 错误表明 Git 无法连接到 GitHub 服务器（github.com），具体原因是无法连接到端口 443，这通常与网络环境、防火墙、代理或 GitHub 服务问题有关。
+- fatal: unable to access 错误表明 Git 无法连接到 GitHub 服务器（github.com），具体原因是无法连接到端口 443，这通常与网络环境、防火墙、代理或 GitHub 服务问题有关。
 
 至于**解决方法**嘛，等一段时间再试，或者换加速器节点
+
+---
+
+```bash
+warning: in the working copy of '文件路径', LF will be replaced by CRLF the next time Git touches it
+```
+
+- 这些警告的意思是：当前文件使用的是 LF 换行符。下次 Git 操作（如 git add 或 git commit）时，Git 会将这些文件的换行符从 LF 转换为 CRLF（如果你在 Windows 上）。
+   如果你在 Unix/Linux/macOS 上，Git 会保持 LF 不变。
+
+如果你不关心换行符的差异，可以**忽略这些警告**。Git 的自动换行符处理通常不会影响文件内容。
 
 ---
 
