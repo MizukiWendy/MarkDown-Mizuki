@@ -97,7 +97,7 @@ fatal: unable to access 'https://github.com/MizukiWendy/MarkDown-Mizuki.git/': F
 
 - fatal: unable to access 错误表明 Git 无法连接到远程仓库，通常是由于网络问题或连接被阻止引起的，这里的问题出在没有科学上网的工具，连接GitHub出问题了。
 
-###### 解决方法就是**使用科学上网的工具**改变网络连接。
+###### 解决方法就是**使用科学上网的工具**改变网络连接
 
 ---
 
