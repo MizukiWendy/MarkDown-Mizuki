@@ -87,25 +87,67 @@ git push -u origin main
 
 ---
 
-注：**这里可能会报各种各样的错**
+#### **报错解决**
+
+##### 网络连接GitHub报错
 
 ```bash
 fatal: unable to access 'https://github.com/MizukiWendy/MarkDown-Mizuki.git/': Failure when receiving data from the peer
 ```
 
-- fatal: unable to access 错误表明 Git 无法连接到远程仓库，通常是由于网络问题或连接被阻止引起的。简单来讲就是与GitHub断开连接了。
+- fatal: unable to access 错误表明 Git 无法连接到远程仓库，通常是由于网络问题或连接被阻止引起的，这里的问题出在没有科学上网的工具，连接GitHub出问题了。
+
+###### 解决方法就是**使用科学上网的工具**改变网络连接。
 
 ---
+
+##### Git连接GitHub报错
 
 ```bash
 fatal: unable to access 'https://github.com/MizukiWendy/MarkDown-Mizuki.git/': Failed to connect to github.com port 443 after 21081 ms: Couldn't connect to server
 ```
 
-- fatal: unable to access 错误表明 Git 无法连接到 GitHub 服务器（github.com），具体原因是无法连接到端口 443，这通常与网络环境、防火墙、代理或 GitHub 服务问题有关。
+- fatal: unable to access 错误表明 Git 无法连接到 GitHub 服务器（github.com），具体原因是无法连接到端口 443，这里问题出在Git网络连接，Git 默认不会使用系统的代理设置，需要手动配置代理。
 
-至于**解决方法**嘛，等一段时间再试，或者换加速器节点
+###### 解决方法就是**配置Git的代理**
+
+- 使用以下命令检查 Git 是否已经配置了代理：
+
+```bash
+git config --global http.proxy
+git config --global https.proxy
+```
+
+如果返回空值，说明没有配置代理；如果有返回值，说明已经配置了代理。
+
+- 如果已经配置了代理，但代理设置不正确（例如端口号错误），需要先取消代理：
+
+```bash
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
+  ```
+
+这样可以清除旧的代理配置，避免冲突。
+
+- 重新设置代理
+- 获取当前科学上网工具的代理地址和端口号（例如 `127.0.0.1:7890`）。
+- 使用以下命令重新配置 Git 的代理：
+
+```bash
+  git config --global http.proxy http://127.0.0.1:7890
+  git config --global https.proxy https://127.0.0.1:7890
+  ```
+
+这样 Git 就会通过指定的代理服务器连接到 GitHub。
+
+- 配置完成后，Git 会通过代理服务器访问 GitHub，从而解决连接超时或 SSL 错误的问题。
+
+- 如果不使用科学上网工具，Git 可以直接连接到 GitHub。
+- 但某些地区可能由于网络限制，无法直接访问 GitHub，此时仍需配置代理。
 
 ---
+
+##### 换行符报错
 
 ```bash
 warning: in the working copy of '文件路径', LF will be replaced by CRLF the next time Git touches it
